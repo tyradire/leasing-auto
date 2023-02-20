@@ -1,0 +1,132 @@
+@import './variables.scss';
+
+.leasing {
+  max-width: 1334px;
+  margin: 0;
+  margin-top: 216px;
+  margin-left: 48px;
+  &__title {
+    max-width: 753px;
+    font-family: 'Nekst';
+    font-weight: 900;
+    font-size: 54px;
+    line-height: 48.6px;
+    color: $black;
+  }
+  &__calculate {
+    margin-top: 30px;
+  }
+}
+
+.calculate {
+  &__fields {
+    width: 100%;
+    display: flex;
+  }
+  &__field {
+    position: relative;
+    width: 427px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    margin-left: 32px;
+    &:first-of-type {
+      margin-left: 0;
+    }
+    div {
+      display: flex;
+      height: 49px;
+      margin-top: 13px;
+      span {
+        @include value-lg;
+        color: $grey-deep;
+        line-height: .7;   
+        margin-left: 15px;
+      }
+    } 
+  }
+  &__subtitle {
+    @include subtitle;
+    margin: 0;
+  }
+  &__input {
+    position: relative;
+    @include value-md;
+    width: 427px;
+    height: 68px;
+    background-color: $grey-silver;
+    margin-top: 22px;
+    box-sizing: border-box;
+    padding: 5px 0 0 24px;
+    border: none;
+    border-radius: 16px;
+    outline: none;
+  }
+  &__result {
+    display: flex;
+    align-items: flex-end;
+    margin-top: 56px;
+  }
+  &__button {
+    @include value-md;
+    cursor: pointer;
+    margin-left: 32px;
+    width: 426px;
+    height: 68px;
+    border: none;
+    border-radius: 40px;
+    background-color: $orange;
+    color: $white;
+  }
+  &__value {
+    @include value-lg;
+    color: $grey-deep;
+    margin: 0;
+  }
+  &__range {
+    width: 379px;
+    height: 2px;
+    margin: 0;
+    position: absolute;
+    bottom: -2px;
+    left: 23px;
+    -webkit-appearance: none;
+    background-color: $orange;
+    border-radius: 5px;
+    z-index: 10;
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      background-color: $orange;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    &::-moz-range-thumb {
+      background-color: $orange;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+  &__tag {
+    @include value-md;
+    position: absolute;
+    bottom: 3px;
+    right: 25px;
+    &_sm {
+      @include value-sm;
+      bottom: 6px;
+      right: 8px;
+      width: 30px;
+      padding: 3px 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $grey-cover;
+      border-radius: 16px;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+<section class="leasing">
+  <h1 class="leasing__title">
+    Рассчитайте стоимость автомобиля в лизинг
+  </h1>
+  <form class="leasing__calculate" id="leasing-form">
+    <div class="calculate__fields">
+      <div class="calculate__field">
+        <label class="calculate__subtitle" for="price-auto">Стоимость автомобиля</label>
+        <input class="calculate__input" type="text" name="price-auto" id="price-auto" value="3300000">
+        <input class="calculate__range" min="1500000" max="10000000" type="range" id="auto-range" value="3300000">
+        <div class="calculate__tag">₽</div>
+      </div>
+      <div class="calculate__field">
+        <label class="calculate__subtitle" for="price-fee">Первоначальный взнос</label>
+        <input class="calculate__input" type="text" name="price-fee" id="price-fee" value="420000">
+        <input class="calculate__range" min="330000" max="1980000" type="range" id="fee-range" value="420000">
+        <div class="calculate__tag calculate__tag_sm">13%</div>
+      </div>
+      <div class="calculate__field">
+        <label class="calculate__subtitle" for="time">Срок лизинга</label>
+        <input class="calculate__input" type="text" name="time" id="time" value="60">
+        <input class="calculate__range" min="6" max="120" type="range" id="time-range" value="60">
+        <div class="calculate__tag">мес.</div>
+      </div>
+    </div>
+    <div class="calculate__result">
+      <div class="calculate__field">
+        <p class="calculate__subtitle">Сумма договора лизинга</p>
+        <div>
+          <p class="calculate__value">4467313</p>
+          <span>₽</span>
+        </div>
+      </div>
+      <div class="calculate__field">
+        <p class="calculate__subtitle">Ежемесячный платеж от</p>
+        <div>
+          <p class="calculate__value">114455</p>
+          <span>₽</span>
+        </div>
+      </div>
+      <input class="calculate__button" type="submit" value="Оставить заявку">
+    </div>
+  </form>
+</section>

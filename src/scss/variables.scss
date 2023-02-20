@@ -1,0 +1,36 @@
+$white: #FFFFFF;
+$grey-pearl: #E5E5E5;
+$grey-cover: #EBEBEC;
+$black: #111111;
+$grey-deep: #333333;
+$grey-smoke: #575757;
+$grey-silver: #F3F3F4;
+$orange: #FF9514;
+
+@mixin subtitle {
+  font-family: 'Gilroy';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+@mixin value-sm {
+  font-family: 'Nekst';
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 900;
+}
+
+@mixin value-md {
+  font-family: 'Nekst';
+  font-size: 30px;
+  line-height: 36px;
+  font-weight: 900;
+}
+
+@mixin value-lg {
+  font-family: 'Nekst';
+  font-size: 54px;
+  line-height: .9;
+  font-weight: 900;
+}
