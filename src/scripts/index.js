@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // Init values
-  const autoMinPrice = 1500000;
-  const autoMaxPrice = 10000000;
-  const autoDiffPrice = autoMaxPrice - autoMinPrice;
+  let autoMinPrice = 1500000;
+  let autoMaxPrice = 10000000;
+  let autoDiffPrice = autoMaxPrice - autoMinPrice;
   const timeMinFee = 6;
   const timeMaxFee = 120;
   const timeDiffFee = timeMaxFee - timeMinFee;
@@ -52,46 +52,118 @@ document.addEventListener('DOMContentLoaded', () => {
     input.style.background = rangeColor;
   }
 
+  // Update min and max values for fee range input
+  const updateMinMaxFee = () => {
+    priceFeeRange.min = (Number(priceAuto.value.replaceAll(' ', ''))*0.1).toFixed();
+    priceFeeRange.max = (Number(priceAuto.value.replaceAll(' ', ''))*0.6).toFixed();
+  }
+
   // Input functions
   const setCarCost = (e) => {
-    let percent = (((+(e.currentTarget.value) - autoMinPrice)*100)/autoDiffPrice).toFixed();
-    setFillRangeInputColor(e.currentTarget, percent);
     e.currentTarget.myParam.value = Number(e.target.value).toLocaleString('ru-RU');
     const newFeeAuto = Number((priceAutoRange.value.replaceAll(' ', '') * feeTag.textContent.replaceAll('%', '') * 0.01).toFixed(0));
-    feeAuto.value = newFeeAuto.toLocaleString('ru-RU') + ' ₽';
-    // min and max values for an initial fee
-    priceFeeRange.min = Number(priceAuto.value.replaceAll(' ', ''))*0.1;
-    priceFeeRange.max = Number(priceAuto.value.replaceAll(' ', ''))*0.6;
     priceFeeRange.value = newFeeAuto;
-    textValues[0].textContent = Number(calculateTotalSum()).toLocaleString('ru-RU');
-    textValues[1].textContent = Math.ceil(Number(monthlyPay())).toLocaleString('ru-RU');
+    const percent = (((+(e.currentTarget.value) - autoMinPrice)*100)/autoDiffPrice).toFixed();
+    setFillRangeInputColor(e.currentTarget, percent);
+    updateMinMaxFee();
+    updateTextValues();
   }
   const setFee = (e) => {
-    let percent = ((parseInt(e.currentTarget.value.replaceAll(' ', '').split('₽')[0], 10) * 100 / Number(priceAuto.value.replaceAll(' ', ''))).toFixed(0) - 10) * 2;
+    const percent = ((parseInt(e.currentTarget.value.replaceAll(' ', '').split('₽')[0], 10) * 100 / Number(priceAuto.value.replaceAll(' ', ''))).toFixed(0) - 10) * 2;
     setFillRangeInputColor(e.currentTarget, percent);
     e.currentTarget.myParam.value = Number(e.target.value).toLocaleString('ru-RU', { maximumFractionDigits: 0});
     feeTag.textContent = (parseInt(feeAuto.value.replaceAll(' ', '').split('₽')[0], 10) * 100 / Number(priceAuto.value.replaceAll(' ', ''))).toFixed(0) + '%';    
     e.currentTarget.myParam.value += ' ₽';
-    textValues[0].textContent = Number(calculateTotalSum()).toLocaleString('ru-RU');
-    textValues[1].textContent = Math.ceil(Number(monthlyPay())).toLocaleString('ru-RU');
+    updateTextValues();
   }
   const setTime = (e) => {
     timeAuto.value = e.currentTarget.value;
-    let percent = ((parseInt(timeAuto.value - timeMinFee) * 100) / timeDiffFee);
+    const percent = ((parseInt(timeAuto.value - timeMinFee) * 100) / timeDiffFee);
     setFillRangeInputColor(e.currentTarget, percent);
+    updateTextValues();
+  }
+
+  // Update text <p> fields
+  const updateTextValues = () => {
     textValues[0].textContent = Number(calculateTotalSum()).toLocaleString('ru-RU');
     textValues[1].textContent = Math.ceil(Number(monthlyPay())).toLocaleString('ru-RU');
   }
 
+  const inputRegex = /[^0-9]/;
+  const setInput = (e) => {
+    if (e.key == 'Backspace') {
+      return;
+    }
+    if (e.key.match(inputRegex)) {
+      e.preventDefault();
+    } else return;
+  }
+
+
+  const focusOut = (e) => {
+    updateMinMaxFee();
+    if (Number(e.target.value.replaceAll(' ', '')) < autoMinPrice) {
+      e.target.value = Number(autoMinPrice).toLocaleString('ru-RU');
+      priceAutoRange.value = e.currentTarget.value.replaceAll(' ', '')
+      const percent = (((e.target.value.replaceAll(' ', '') - autoMinPrice)*100)/autoDiffPrice).toFixed();
+      setFillRangeInputColor(priceAutoRange, Number(percent));
+      updateTextValues();
+    } else if (Number(e.target.value.replaceAll(' ', '')) > autoMaxPrice) {
+      e.target.value = Number(autoMaxPrice).toLocaleString('ru-RU');
+      priceAutoRange.value = e.currentTarget.value.replaceAll(' ', '')
+      const percent = (((e.target.value.replaceAll(' ', '') - autoMinPrice)*100)/autoDiffPrice).toFixed();
+      setFillRangeInputColor(priceAutoRange, Number(percent));
+      updateTextValues();
+    } else {
+      e.target.value = Number(e.target.value.replaceAll(' ', '')).toLocaleString('ru-RU');
+      priceAutoRange.value = e.currentTarget.value.replaceAll(' ', '')
+      const percent = (((e.target.value.replaceAll(' ', '') - autoMinPrice)*100)/autoDiffPrice).toFixed();
+      setFillRangeInputColor(priceAutoRange, Number(percent));
+      updateTextValues();
+    }
+    const feePercent = ((parseInt(feeAuto.value.replaceAll(' ', '').split('₽')[0], 10) * 100 / Number(priceAuto.value.replaceAll(' ', ''))).toFixed(0) - 10) * 2;
+    setFillRangeInputColor(priceFeeRange, feePercent);
+    const newFeeAuto = Number((priceAutoRange.value.replaceAll(' ', '') * feeTag.textContent.replaceAll('%', '') * 0.01).toFixed(0));
+    priceFeeRange.value = newFeeAuto;
+    feeAuto.value = Number((Number(e.target.value.replaceAll(' ', '')) * feeTag.textContent.replace('%', '') / 100).toFixed()).toLocaleString('ru-RU') + ' ₽';
+  }
+  const focusInInput = (e) => {
+    e.target.value = Number(e.target.value.replaceAll(' ', '').replace('₽',''));
+  }
+  const focusOutFee = (e) => {
+    updateMinMaxFee();
+    if (Number(e.target.value.replaceAll(' ', '').replace('₽','')) < priceFeeRange.min) {
+      e.target.value = Number(priceFeeRange.min).toLocaleString('ru-RU') + ' ₽';
+      updateTextValues();
+    } else if (Number(e.target.value.replaceAll(' ', '').replace('₽','')) > priceFeeRange.max) {
+      e.target.value = Number(priceFeeRange.max).toLocaleString('ru-RU') + ' ₽';
+      updateTextValues();
+    } else {
+      e.target.value = Number(e.target.value.replaceAll(' ', '')).toLocaleString('ru-RU') + ' ₽';
+      updateTextValues();
+    }
+    feeTag.textContent = (parseInt(feeAuto.value.replaceAll(' ', '').split('₽')[0], 10) * 100 / Number(priceAuto.value.replaceAll(' ', ''))).toFixed(0) + '%';
+    const feePercent = ((parseInt(feeAuto.value.replaceAll(' ', '').split('₽')[0], 10) * 100 / Number(priceAuto.value.replaceAll(' ', ''))).toFixed(0) - 10) * 2;
+    setFillRangeInputColor(priceFeeRange, feePercent);
+    const newFeeAuto = Number((priceAutoRange.value.replaceAll(' ', '') * feeTag.textContent.replaceAll('%', '') * 0.01).toFixed(0));
+    priceFeeRange.value = newFeeAuto;
+  }
+
   // Set input listeners
+  priceAuto.addEventListener('keydown', setInput);
+  priceAuto.addEventListener('focusin', focusInInput);
+  priceAuto.addEventListener('focusout', focusOut);
+  feeAuto.addEventListener('keydown', setInput);
+  feeAuto.addEventListener('focusin', focusInInput);
+  feeAuto.addEventListener('focusout', focusOutFee);
+  timeAuto.addEventListener('keydown', setInput);
+  
   priceAutoRange.addEventListener('input', setCarCost);
   priceAutoRange.myParam = priceAuto;
   priceFeeRange.addEventListener('input', setFee);
   priceFeeRange.myParam = feeAuto;
-  priceFeeRange.isFeeRange = true;
   priceTimeRange.addEventListener('input', setTime);
   priceTimeRange.myParam = timeAuto;
-  priceTimeRange.isTimeRange = true;
 
   // Set init range input color
   const initialization = () => {

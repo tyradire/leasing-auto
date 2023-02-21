@@ -60,7 +60,7 @@
     padding: 5px 0 0 24px;
     border: none;
     border-radius: 16px;
-    outline: none;
+    outline: 1px solid transparent;
   }
   &__result {
     display: flex;
@@ -94,6 +94,7 @@
     background: linear-gradient(90deg, rgb(255, 149, 20) 50%, rgb(0,0,0, 0) 50%);
     border-radius: 5px;
     z-index: 10;
+    outline: 1px solid transparent;
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
