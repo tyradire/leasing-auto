@@ -48,6 +48,7 @@
   &__subtitle {
     @include subtitle;
     margin: 0;
+    color: $grey-smoke;
   }
   &__input {
     position: relative;
@@ -55,12 +56,18 @@
     width: 427px;
     height: 68px;
     background-color: $grey-silver;
+    color: $grey-smoke;
     margin-top: 22px;
     box-sizing: border-box;
     padding: 5px 0 0 24px;
-    border: none;
+    border: 1px solid transparent;
     border-radius: 16px;
     outline: 1px solid transparent;
+    transition: .3s;
+    &:focus {
+      background-color: $white;
+      border-color: $grey-silver;
+    }
   }
   &__result {
     display: flex;
@@ -77,6 +84,12 @@
     border-radius: 40px;
     background-color: $orange;
     color: $white;
+    &:hover {
+      background-color: $black;
+    }
+    &:active {
+      background-color: $grey-smoke;
+    }
   }
   &__value {
     @include value-lg;
@@ -88,10 +101,10 @@
     height: 2px;
     margin: 0;
     position: absolute;
-    bottom: -2px;
+    bottom: 0;
     left: 23px;
     -webkit-appearance: none;
-    background: linear-gradient(90deg, rgb(255, 149, 20) 50%, rgb(0,0,0, 0) 50%);
+    background: linear-gradient(90deg, rgb(255, 149, 20) 50%, rgb(87, 87, 87) 50%);
     border-radius: 5px;
     z-index: 10;
     outline: 1px solid transparent;
@@ -103,6 +116,10 @@
       height: 20px;
       border-radius: 50%;
       cursor: pointer;
+      transition: .5s;
+      &:hover {
+        transform: scale(1.2);
+      }
     }
     &::-moz-range-thumb {
       background-color: $orange;
@@ -110,6 +127,9 @@
       height: 20px;
       border-radius: 50%;
       cursor: pointer;
+      &:hover {
+        transform: scale(1.2);
+      }
     }
   }
   &__tag {
@@ -117,6 +137,7 @@
     position: absolute;
     bottom: 3px;
     right: 25px;
+    color: $grey-smoke;
     &_sm {
       @include value-sm;
       bottom: 6px;

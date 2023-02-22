@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Set color for range input
   const setFillRangeInputColor = (input, percent) => {
-    const rangeColor = 'linear-gradient(90deg, rgb(255, 149, 20)' + percent + '%, rgb(0,0,0,0)' + percent + '%)';
+    const rangeColor = 'linear-gradient(90deg, rgb(255, 149, 20)' + percent + '%, rgb(225, 225, 225)' + percent + '%)';
     input.style.background = rangeColor;
   }
 
