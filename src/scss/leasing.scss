@@ -6,6 +6,11 @@
   margin: 0;
   margin-top: 215px;
   margin-left: 47px;
+  @media screen and (max-width: $tablet) {
+    max-width: 696px;
+    margin-top: 67px;
+    margin-left: 36px;
+  }
   &__title {
     max-width: 753px;
     font-family: 'Nekst';
@@ -16,13 +21,25 @@
   }
   &__calculate {
     margin-top: 30px;
+    @media screen and (max-width: $tablet) {
+      margin-top: 42px;
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 
 .calculate {
   &__fields {
-    width: 100%;
     display: flex;
+    @media screen and (max-width: $tablet) {
+      flex-direction: column;
+    }
+    &_values {
+      @media screen and (max-width: $tablet) {
+        flex-direction: row;
+      }
+    }
   }
   &__field {
     position: relative;
@@ -36,6 +53,20 @@
     }
     @media screen and (max-width: $laptop) {
       min-width: 320px;
+    }
+    @media screen and (max-width: $tablet) {
+      margin-left: 0;
+      margin-top: 38px;
+      width: 100%;
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
+    &_value {
+      @media screen and (max-width: $tablet) {
+        margin-top: 0;
+        padding-left: 31px;
+      }
     }
     div {
       display: flex;
@@ -83,17 +114,28 @@
       width: 320px;
       padding: 5px 0 0 30px;
     }
+    @media screen and (max-width: $tablet) {
+      width: 696px;
+      padding: 1px 0 0 23px;
+    }
     &_fee {
       @media screen and (max-width: $laptop) {
         width: 320px;
         padding: 5px 0 0 24px;
       }
+      @media screen and (max-width: $tablet) {
+        width: 696px;
+        padding: 1px 0 0 23px;
+      }
     }
   }
   &__result {
     display: flex;
-    align-items: flex-end;
     margin-top: 53px;
+    @media screen and (max-width: $tablet) {
+      margin-top: 45px;
+      flex-direction: column;
+    }
   }
   &__button {
     position: relative;
@@ -121,6 +163,13 @@
     }
     @media screen and (max-width: $laptop) {
       min-width: 320px;
+      margin-left: 32px;
+    }
+    @media screen and (max-width: $tablet) {
+      align-self: flex-start;
+      margin-left: 0;
+      margin-top: 40px;
+      min-width: 345px;
     }
   }
   &__spinner {
@@ -157,6 +206,9 @@
     border-radius: 2px 0 0 0;
     @media screen and (max-width: $laptop) {
       width: 272px;
+    }
+    @media screen and (max-width: $tablet) {
+      width: 648px;
     }
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
