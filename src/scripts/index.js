@@ -22,8 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Edit text <p> fields
   const textValues = document.querySelectorAll('.calculate__value');
   textValues.forEach(el => el.textContent = Number(el.textContent).toLocaleString('ru-RU'));
-
-  
+  const mainSubtitle = document.querySelectorAll('.calculate__subtitle')[0];
 
   // Form alert form values
   const submitBtn = document.getElementById('submit-btn');
@@ -178,6 +177,22 @@ document.addEventListener('DOMContentLoaded', () => {
   priceTimeRange.addEventListener('input', setTime);
   priceTimeRange.myParam = timeAuto;
 
+  // Set window size
+  let windowSize = 0;
+  let screenType = 'desktop';
+
+  const windowResize = () => {
+    windowSize = window.innerWidth
+    if (windowSize > 1120) screenType = 'desktop';
+    else if (windowSize < 600) {
+      screenType = 'mobile';
+      mainSubtitle.textContent = 'Желаемая сумма кредита';
+    } else if (windowSize < 768) screenType = 'tablet';
+    else screenType = 'laptop';
+    console.log(windowSize, screenType);
+  }
+  window.addEventListener("resize", windowResize);
+
   // Set init range input color
   const initialization = () => {
     const feePercent = ((parseInt(feeAuto.value.replaceAll(' ', '').split('₽')[0], 10) * 100 / Number(priceAuto.value.replaceAll(' ', ''))).toFixed(0) - 10) * 2;
@@ -186,7 +201,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setFillRangeInputColor(priceAutoRange, autoPercent);
     const timePercent = ((parseInt(timeAuto.value - timeMinFee) * 100) / timeDiffFee);
     setFillRangeInputColor(priceTimeRange, timePercent);
+    windowResize();
   }
 
   initialization();
+
 });

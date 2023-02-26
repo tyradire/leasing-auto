@@ -7,10 +7,31 @@ $grey-smoke: #575757;
 $grey-silver: #F3F3F4;
 $orange: #FF9514;
 
+@mixin title {
+  font-family: 'Nekst';
+  font-weight: 900;
+  font-size: 54px;
+  line-height: 48.6px;
+}
+
+@mixin title-mobile {
+  font-family: 'Nekst';
+  font-weight: 900;
+  font-size: 34px;
+  line-height: 30.6px;
+}
+
 @mixin subtitle {
   font-family: 'Gilroy';
   font-size: 16px;
   line-height: 20px;
+  font-weight: 400;
+}
+
+@mixin subtitle-mobile {
+  font-family: 'Gilroy';
+  font-size: 14px;
+  line-height: 19.04px;
   font-weight: 400;
 }
 
@@ -28,9 +49,23 @@ $orange: #FF9514;
   font-weight: 900;
 }
 
+@mixin value-md-mobile {
+  font-family: 'Nekst';
+  font-size: 22px;
+  line-height: 20px;
+  font-weight: 900;
+}
+
 @mixin value-lg {
   font-family: 'Nekst';
   font-size: 54px;
+  line-height: .9;
+  font-weight: 900;
+}
+
+@mixin value-lg-mobile {
+  font-family: 'Nekst';
+  font-size: 22px;
   line-height: .9;
   font-weight: 900;
 }
