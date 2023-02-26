@@ -1,10 +1,11 @@
 @import './variables.scss';
+@import './sizes.scss';
 
 .leasing {
   max-width: 1334px;
   margin: 0;
-  margin-top: 216px;
-  margin-left: 48px;
+  margin-top: 215px;
+  margin-left: 47px;
   &__title {
     max-width: 753px;
     font-family: 'Nekst';
@@ -25,13 +26,16 @@
   }
   &__field {
     position: relative;
-    width: 427px;
+    min-width: 427px;
     display: flex;
     flex-direction: column;
     margin: 0;
     margin-left: 32px;
     &:first-of-type {
       margin-left: 0;
+    }
+    @media screen and (max-width: $laptop) {
+      min-width: 320px;
     }
     div {
       display: flex;
@@ -43,7 +47,14 @@
         line-height: .7;   
         margin-left: 15px;
       }
-    } 
+    }
+    &:hover > .calculate__range {
+      height: 1px;
+      border-radius: 0;
+    }
+    &:hover > .calculate__range::-webkit-slider-thumb {
+      transform: scale(1.2);
+    }
   }
   &__subtitle {
     @include subtitle;
@@ -54,7 +65,7 @@
     position: relative;
     @include value-md;
     width: 427px;
-    height: 68px;
+    height: 70px;
     background-color: $grey-silver;
     color: $grey-smoke;
     margin-top: 22px;
@@ -68,18 +79,29 @@
       background-color: $white;
       border-color: $grey-silver;
     }
+    @media screen and (max-width: $laptop) {
+      width: 320px;
+      padding: 5px 0 0 30px;
+    }
+    &_fee {
+      @media screen and (max-width: $laptop) {
+        width: 320px;
+        padding: 5px 0 0 24px;
+      }
+    }
   }
   &__result {
     display: flex;
     align-items: flex-end;
-    margin-top: 56px;
+    margin-top: 53px;
   }
   &__button {
+    position: relative;
     @include value-md;
     cursor: pointer;
+    min-width: 427px;
+    align-self: center;
     margin-left: 32px;
-    width: 426px;
-    height: 68px;
     border: none;
     border-radius: 40px;
     background-color: $orange;
@@ -89,6 +111,31 @@
     }
     &:active {
       background-color: $grey-smoke;
+    }
+    p {
+      margin: 0;
+      padding: 15px 0;
+    }
+    &:disabled {
+      opacity: .4;
+    }
+    @media screen and (max-width: $laptop) {
+      min-width: 320px;
+    }
+  }
+  &__spinner {
+    display: none;
+    position: absolute;
+    top: calc(50% - 10.5px);
+    left: calc(50% - 10.5px);
+    width: 21px;
+    height: 21px;
+    svg {
+      display: block;
+      animation: spinner .75s linear infinite;
+    }
+    &_loading {
+      display: block;
     }
   }
   &__value {
@@ -105,9 +152,12 @@
     left: 23px;
     -webkit-appearance: none;
     background: linear-gradient(90deg, rgb(255, 149, 20) 50%, rgb(87, 87, 87) 50%);
-    border-radius: 5px;
     z-index: 10;
     outline: 1px solid transparent;
+    border-radius: 2px 0 0 0;
+    @media screen and (max-width: $laptop) {
+      width: 272px;
+    }
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
@@ -117,9 +167,6 @@
       border-radius: 50%;
       cursor: pointer;
       transition: .5s;
-      &:hover {
-        transform: scale(1.2);
-      }
     }
     &::-moz-range-thumb {
       background-color: $orange;
@@ -152,3 +199,12 @@
     }
   }
 }
+
+@keyframes spinner {
+  from {
+    transform: rotate(0)
+  } to {
+    transform: rotate(1turn);
+  }
+}
+

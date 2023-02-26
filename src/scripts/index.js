@@ -23,11 +23,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const textValues = document.querySelectorAll('.calculate__value');
   textValues.forEach(el => el.textContent = Number(el.textContent).toLocaleString('ru-RU'));
 
+  
+
   // Form alert form values
+  const submitBtn = document.getElementById('submit-btn');
   const leasingForm = document.getElementById('leasing-form');
+  const submitSpinner = document.querySelector('.calculate__spinner');
+  const buttonValue = document.querySelector('.calculate__button-value');
+
+  const waiting = () => {
+    buttonValue.textContent = '';
+    submitBtn.disabled = true;
+    submitSpinner.classList.add('calculate__spinner_loading')
+    setTimeout(() => {submitSpinner.classList.remove('calculate__spinner_loading'); submitBtn.disabled = false; buttonValue.textContent = 'Оставить заявку';}, 1000)
+  }
+
   const getForm = (form) => {
+    waiting();
     let alertContent = JSON.stringify(Object.fromEntries(new FormData(form)));
-    alert(alertContent)
+    setTimeout(() => alert(alertContent), 1000);
   }
   leasingForm.addEventListener('submit',(e) => {e.preventDefault(); getForm(leasingForm)})
 
@@ -98,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
     } else return;
   }
-
 
   const focusOut = (e) => {
     updateMinMaxFee();
