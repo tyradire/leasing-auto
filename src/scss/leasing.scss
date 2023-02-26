@@ -65,12 +65,12 @@
     position: relative;
     @include value-md;
     width: 427px;
-    height: 70px;
+    height: 68px;
     background-color: $grey-silver;
     color: $grey-smoke;
-    margin-top: 22px;
+    margin-top: 25px;
     box-sizing: border-box;
-    padding: 5px 0 0 24px;
+    padding: 4px 0 0 23px;
     border: 1px solid transparent;
     border-radius: 16px;
     outline: 1px solid transparent;
@@ -190,7 +190,7 @@
       bottom: 6px;
       right: 8px;
       width: 30px;
-      padding: 3px 17px;
+      padding: 3px 19px 3px 20px;
       display: flex;
       align-items: center;
       justify-content: center;
