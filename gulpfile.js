@@ -30,11 +30,6 @@ function scss() {
     .pipe(dest('dist'))
 }
 
-function copyImages() {
-  return src('./src/images/**/*')
-  .pipe(dest('./dist/images/'))
-}
-
 function copyFonts() {
   return src('./src/fonts/**/*')
   .pipe(dest('./dist/fonts/'))
@@ -66,7 +61,7 @@ gulp.task('deploy', function() {
     .pipe(ghPages());
 });
 
-exports.build = series(clear, copyImages, copyFonts, scripts, scss, html);
-exports.serve = series(clear, copyImages, copyFonts, scripts, scss, html, serve);
+exports.build = series(clear, copyFonts, scripts, scss, html);
+exports.serve = series(clear, copyFonts, scripts, scss, html, serve);
 
 exports.clear = clear;
