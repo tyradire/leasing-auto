@@ -183,12 +183,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const windowResize = () => {
     windowSize = window.innerWidth
-    if (windowSize > 1120) screenType = 'desktop';
+    if (windowSize > 1120) {
+      screenType = 'desktop';
+      mainSubtitle.textContent = 'Стоимость автомобиля';
+    }
     else if (windowSize < 600) {
       screenType = 'mobile';
       mainSubtitle.textContent = 'Желаемая сумма кредита';
-    } else if (windowSize < 768) screenType = 'tablet';
-    else screenType = 'laptop';
+    } else if (windowSize < 769) {
+      screenType = 'tablet';
+      mainSubtitle.textContent = 'Стоимость автомобиля';
+    }
+    else {
+      screenType = 'laptop';
+      mainSubtitle.textContent = 'Стоимость автомобиля';
+    }
     console.log(windowSize, screenType);
   }
   window.addEventListener("resize", windowResize);
