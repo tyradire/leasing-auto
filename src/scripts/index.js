@@ -39,7 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const getForm = (form) => {
     waiting();
-    let alertContent = JSON.stringify(Object.fromEntries(new FormData(form)));
+    let finalObj = Object.fromEntries(new FormData(form))
+    finalObj.total = textValues[0].textContent + ' ₽';
+    finalObj.mountly = textValues[1].textContent + ' ₽';
+    let alertContent = JSON.stringify(finalObj);
     setTimeout(() => alert(alertContent), 1000);
   }
   leasingForm.addEventListener('submit',(e) => {e.preventDefault(); getForm(leasingForm)})
@@ -198,7 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
       screenType = 'laptop';
       mainSubtitle.textContent = 'Стоимость автомобиля';
     }
-    console.log(windowSize, screenType);
   }
   window.addEventListener("resize", windowResize);
 
