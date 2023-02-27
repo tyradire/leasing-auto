@@ -18,11 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const feeAuto = document.getElementById('price-fee');
   const timeAuto = document.getElementById('time');
   const feeTag = document.querySelector('.calculate__tag_sm');
+  const inputTags = document.querySelectorAll('.calculate__tag');
 
   // Edit text <p> fields
   const textValues = document.querySelectorAll('.calculate__value');
   textValues.forEach(el => el.textContent = Number(el.textContent).toLocaleString('ru-RU'));
-  const mainSubtitle = document.querySelectorAll('.calculate__subtitle')[0];
+  const subtitles = document.querySelectorAll('.calculate__subtitle');
+  const roubleSymbols = document.querySelectorAll('.calculate__rouble');
 
   // Form alert form values
   const submitBtn = document.getElementById('submit-btn');
@@ -30,24 +32,49 @@ document.addEventListener('DOMContentLoaded', () => {
   const submitSpinner = document.querySelector('.calculate__spinner');
   const buttonValue = document.querySelector('.calculate__button-value');
 
+  const disableFields = () => {
+    submitBtn.disabled = true;
+    inputValues.forEach(elem => elem.disabled = true);
+    rangeInputs.forEach(elem => elem.disabled = true);
+    inputTags.forEach(elem => elem.classList.add('disabled'));
+    textValues.forEach(elem => elem.classList.add('disabled'));
+    subtitles.forEach(elem => elem.classList.add('disabled'));
+    roubleSymbols.forEach(elem => elem.classList.add('disabled'));
+  }
+
+  const enableFields = () => {
+    submitBtn.disabled = false; 
+    inputValues.forEach(elem => elem.disabled = false);
+    rangeInputs.forEach(elem => elem.disabled = false);
+    inputTags.forEach(elem => elem.classList.remove('disabled'));
+    textValues.forEach(elem => elem.classList.remove('disabled'));
+    subtitles.forEach(elem => elem.classList.remove('disabled'));
+    roubleSymbols.forEach(elem => elem.classList.remove('disabled'));
+  }
+
   const waiting = () => {
     buttonValue.textContent = '';
-    submitBtn.disabled = true;
+    disableFields();
     submitSpinner.classList.add('calculate__spinner_loading')
-    setTimeout(() => {submitSpinner.classList.remove('calculate__spinner_loading'); submitBtn.disabled = false; buttonValue.textContent = 'Оставить заявку';}, 1000)
+    setTimeout(() => {  
+      submitSpinner.classList.remove('calculate__spinner_loading'); 
+      enableFields();
+      buttonValue.textContent = 'Оставить заявку';
+    }, 1000)
   }
 
   const getForm = (form) => {
-    waiting();
     let finalObj = Object.fromEntries(new FormData(form))
     finalObj.total = textValues[0].textContent + ' ₽';
     finalObj.mountly = textValues[1].textContent + ' ₽';
     let alertContent = JSON.stringify(finalObj);
     setTimeout(() => alert(alertContent), 1000);
+    waiting();
   }
   leasingForm.addEventListener('submit',(e) => {e.preventDefault(); getForm(leasingForm)})
 
-  // Get range inputs 
+  // Get range inputs
+  const rangeInputs = document.querySelectorAll('.calculate__range');
   const priceAutoRange = document.getElementById('auto-range');
   const priceFeeRange = document.getElementById('fee-range');
   const priceTimeRange = document.getElementById('time-range');
@@ -188,18 +215,18 @@ document.addEventListener('DOMContentLoaded', () => {
     windowSize = window.innerWidth
     if (windowSize > 1120) {
       screenType = 'desktop';
-      mainSubtitle.textContent = 'Стоимость автомобиля';
+      subtitles[0].textContent = 'Стоимость автомобиля';
     }
     else if (windowSize < 600) {
       screenType = 'mobile';
-      mainSubtitle.textContent = 'Желаемая сумма кредита';
+      subtitles[0].textContent = 'Желаемая сумма кредита';
     } else if (windowSize < 769) {
       screenType = 'tablet';
-      mainSubtitle.textContent = 'Стоимость автомобиля';
+      subtitles[0].textContent = 'Стоимость автомобиля';
     }
     else {
       screenType = 'laptop';
-      mainSubtitle.textContent = 'Стоимость автомобиля';
+      subtitles[0].textContent = 'Стоимость автомобиля';
     }
   }
   window.addEventListener("resize", windowResize);

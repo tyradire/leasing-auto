@@ -116,6 +116,9 @@
     &:hover > .calculate__range::-webkit-slider-thumb {
       transform: scale(1.2);
     }
+    &:hover > .calculate__range::-moz-range-thumb {
+      transform: scale(1.2);
+    }
   }
   &__subtitle {
     @include subtitle;
@@ -171,6 +174,9 @@
         width: 280px;
         padding: 0 0 0 19px;
       }
+    }
+    &:disabled {
+      opacity: .4;
     }
   }
   &__result {
@@ -281,7 +287,7 @@
       height: 20px;
       border-radius: 50%;
       cursor: pointer;
-      transition: .5s;
+      transition: .3s;
     }
     &::-moz-range-thumb {
       background-color: $orange;
@@ -289,9 +295,20 @@
       height: 20px;
       border-radius: 50%;
       cursor: pointer;
-      &:hover {
-        transform: scale(1.2);
+      border: none;
+    }
+    &_fee {
+      &::-webkit-slider-thumb {
+        width: 16px;
+        height: 16px;
       }
+      &::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+      }
+    }
+    &:disabled {
+      opacity: .4;
     }
   }
   &__tag {
@@ -324,6 +341,10 @@
       }
     }
   }
+}
+
+.disabled {
+  opacity: .4;
 }
 
 @keyframes spinner {
