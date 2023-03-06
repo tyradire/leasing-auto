@@ -10,10 +10,10 @@
 * gulp
 
 ## Запуск проекта
-Копирование проекта `git clone https://github.com/tyradire/leasing-auto`
-Установка зависимостей `npm i`
-Запуск проекта локально `gulp serve`
-Сборка `gulp build`
+Копирование проекта `git clone https://github.com/tyradire/leasing-auto`  
+Установка зависимостей `npm i`  
+Запуск проекта локально `gulp serve`  
+Сборка `gulp build`  
 
 ## Веб-версия
 https://tyradire.github.io/leasing-auto/
